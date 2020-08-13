@@ -18,6 +18,12 @@ export class RecipeListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // recipesChanged will track recipes after changes in a form
+    this.recipesService.recipesChanged
+      .subscribe(
+      (recipes: Recipe[]) => {
+        this.recipes = recipes;
+      })
     //we get only the copy of the array
     this.recipes = this.recipesService.getRecipes();
   }
