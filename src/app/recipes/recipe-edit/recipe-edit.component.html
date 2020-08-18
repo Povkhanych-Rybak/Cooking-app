@@ -10,7 +10,10 @@
             class="btn btn-success"
             [disabled] = "recipeForm.invalid || recipeForm.pending">
             Save</button>
-          <button type="button" class="btn btn-danger">Cancel</button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="onCancel()">Cancel</button>
         </div>
       </div>
 
@@ -34,14 +37,15 @@
                 type="text"
                 id="imagePath"
                 class="form-control"
-                formControlName="imagePath">
+                formControlName="imagePath"
+                #imagePath>
             </div>
           </div>
         </div>
 
         <div class="row">
           <div class="col-xs-12">
-            <img src="" alt="" class="img-responsive">
+            <img [src]="imagePath.value" alt="" class="img-responsive">
           </div>
         </div>
 
@@ -77,8 +81,12 @@
                   formControlName="amount">
               </div>
               <div class="col-xs-2">
-                <button class="btn btn-danger">X</button>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  (click)="onDeleteIngredient(i)">X</button>
               </div>
+              <!--"onDeleteIngredient(i)"> i =the index of control we need to remove -->
             </div>
             <hr>
             <div class="row">

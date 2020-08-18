@@ -27,6 +27,7 @@ export class RecipeDetailComponent implements OnInit {
         this.recipe = this.recipesService.getRecipe(this.id);
       }
     );
+
   }
 
   onEditRecipe() {
@@ -37,8 +38,12 @@ export class RecipeDetailComponent implements OnInit {
 
   onAddToShoppingList() {
     this.recipesService.addIngredientsToShoppingList(this.recipe.ingredients);
+  }
 
-
+  //trial
+  onDeleteRecipe() {
+    this.recipesService.deleteRecipe(this.id);
+    this.router.navigate(['/recipes']);
   }
 
 }
