@@ -1,5 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs';
+
+import { AuthService, AuthResponseData } from './auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -7,16 +10,47 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent {
-  @ViewChild('authForm', {static: false}) loginForm: NgForm;
-  // to check if we're in login or sign up mode
   isLoginMode =  true;
+  isLoading = false;
+  error:string = null;
+
+  constructor(private authService: AuthService) {}
+  // to check if we're in login or sign up mode
+
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
   }
 
   onSubmit(form: NgForm) {
-    console.log(form.value);
+    if(!form.valid) {
+      return;
+    }
+    const email = form.value.email;
+    const password = form.value.password;
+
+    let authObs: Observable<AuthResponseData>;
+
+    this.isLoading = true;
+    if(this.isLoginMode) {
+      // no subscribe as we store the method depending on the mode
+      authObs = this.authService.login(email, password)
+    } else {
+      authObs = this.authService.signup(email, password)
+    }
+
+    authObs.subscribe(
+      (resData) => {
+        console.log(resData);
+        this.isLoading = false;
+      },
+      // we receive only errorMessage but not a whole error reponse as we adjust it in a service via rxjs
+      (errorMessage) => {
+        console.log('Mess should be here', errorMessage);
+        this.error = errorMessage;
+        this.isLoading = false;
+      }
+    )
     form.reset();
   }
 }
