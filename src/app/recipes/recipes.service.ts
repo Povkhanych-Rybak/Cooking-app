@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
@@ -6,8 +5,7 @@ import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
-@Injectable()
-
+@Injectable({providedIn: 'root'})
 export class RecipesService {
   // we have to track changes after the form is submitted
   private recipes: Recipe[] = [];
