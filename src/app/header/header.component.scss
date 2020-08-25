@@ -1,0 +1,24 @@
+.navbar {
+  margin-bottom: 0;
+}
+
+.banner {
+  min-height: 15rem;
+  margin-bottom: 1.2rem;
+  & img {
+    max-height: 73vh;
+    box-sizing: border-box;
+    max-width: 100%;
+    @media (max-width: 1199px) {
+      max-height: none;
+    }
+  }
+  &.container-fluid {
+    padding-left: 0;
+  }
+}
+
+.navbar-default .navbar-nav>.active>a {
+  background-color: #e69714f0;
+  border-radius: 3px;
+}

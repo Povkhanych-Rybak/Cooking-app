@@ -14,15 +14,18 @@ import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { RecipesResolverService } from './recipes.resolver.service';
 
-const routes: Routes = [{ path: 'recipes', component: RecipesComponent,
-  canActivate: [AuthGuard],
-  children: [
-    { path: '', component: RecipeStartComponent },
-    { path: 'new', component: RecipeEditComponent },
-    { path: ':id', component: RecipeDetailComponent, resolve: [RecipesResolverService] },
-    { path: ':id/edit', component: RecipeEditComponent,  resolve: [RecipesResolverService]  }
-
-]}];
+const routes: Routes = [
+  // change path to from 'recipes' to '' for lazy loading
+  { path: '',
+    component: RecipesComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', component: RecipeStartComponent },
+      { path: 'new', component: RecipeEditComponent },
+      { path: ':id', component: RecipeDetailComponent, resolve: [RecipesResolverService] },
+      { path: ':id/edit', component: RecipeEditComponent,  resolve: [RecipesResolverService]  }
+    ]}
+];
 
 @NgModule({
   declarations: [
@@ -39,15 +42,15 @@ const routes: Routes = [{ path: 'recipes', component: RecipesComponent,
     ReactiveFormsModule,
     SharedModule
   ],
-  // exports: [
-  //   RecipesComponent,
-  //   RecipeListComponent,
-  //   RecipeDetailComponent,
-  //   RecipeItemComponent,
-  //   RecipeStartComponent,
-  //   RecipeEditComponent,
-  //   RouterModule
-  // ],
+  exports: [
+    RecipesComponent,
+    RecipeListComponent,
+    RecipeDetailComponent,
+    RecipeItemComponent,
+    RecipeStartComponent,
+    RecipeEditComponent,
+    RouterModule
+  ],
   providers: []
 })
 export class RecipesModule {

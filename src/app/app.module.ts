@@ -3,9 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+//import { RouterModule } from '@angular/router';
 
-import { RecipesModule } from './recipes/recipes.module';
-import { ShoppingListModule } from './shopping-list/shopping-list.module';
+//import { RecipesModule } from './recipes/recipes.module';
+//import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth.module';
 
@@ -26,10 +27,11 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RecipesModule,
-    ShoppingListModule,
+    //RecipesModule,
+    //ShoppingListModule,
     SharedModule,
-    AuthModule
+    AuthModule,
+    //RouterModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS,
