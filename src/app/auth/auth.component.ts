@@ -1,26 +1,55 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { trigger, state, style, transition, animate }  from '@angular/animations';
 
 import { AuthService, AuthResponseData } from './auth.service';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss']
+  styleUrls: ['./auth.component.scss'],
+  animations: [
+    trigger('auth-block', [
+      state('start', style( {
+        background: '#faa8209e',
+        padding: '3%',
+        marginLeft: '0',
+        opacity: '0',
+      })),
+      state('end', style( {
+        background: 'white',
+        padding: '0',
+        marginLeft: '25%',
+        opacity: '1'
+      })),
+      transition('start => end', animate(600))
+    ])
+  ]
 })
-export class AuthComponent {
+export class AuthComponent implements OnInit {
   isLoginMode =  true;
   isLoading = false;
   error:string = null;
+  //animation property
+  authBlockState = 'start';
 
   constructor(
     private authService: AuthService,
     private router: Router
   ) {}
+
+  ngOnInit(): void {
+    this.animate();
+  }
   // to check if we're in login or sign up mode
 
+  animate() {
+    setTimeout(() => {
+      this.authBlockState = this.authBlockState === 'start' ? 'end' : 'start';
+    }, 300);
+  }
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
