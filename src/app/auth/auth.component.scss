@@ -5,3 +5,9 @@ button:first-of-type {
 .indent_top {
   margin-top: 2rem;
 }
+
+@media (max-width: 1199px) {
+  .customized_width {
+    width: 55%;
+  }
+}
